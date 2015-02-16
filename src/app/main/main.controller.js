@@ -1,13 +1,23 @@
 'use strict';
 
 angular.module('backing')
-  .controller('MainCtrl', function ($scope, Auth, FBURL, $firebaseAuth, StreamService) {
+  .controller('MainCtrl', function ($scope, Auth, FBURL, $firebaseAuth, StreamService, $http) {
     var ref = new Firebase(FBURL);
-    $scope.auth = $firebaseAuth(ref);
+    var auth = $firebaseAuth(ref);
     Auth.$onAuth(function(authData) {
       console.log(authData);
-       $scope.authData = authData;
+      $scope.authData = authData;
+      $http.get('http://graph.facebook.com/v2.2/me/links')
+        .success(function (data) {
+          console.log(data);
+        });
     });
+
+    $scope.loginWithFacebook = function() {
+      auth.$authWithOAuthPopup('facebook', {
+        scope: 'read_stream'
+      })
+    };
 
     $scope.stream = [{first: 'here'}];
 

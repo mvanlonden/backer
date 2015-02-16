@@ -1,0 +1,31 @@
+<div class="container">
+
+  <div ng-include="'components/navbar/navbar.html'"></div>
+
+  <div class="jumbotron text-center">
+    <h1>'Allo, 'Allo!</h1>
+    <p class="lead">
+      <img src="assets/images/yeoman.png" alt="I'm Yeoman"><br>
+      Always a pleasure scaffolding your apps.
+    </p>
+    <p><a class="btn btn-lg btn-success" ng-href="#">Splendid!</a></p>
+  </div>
+
+  <div class="row">
+      <div ng-show="authData">
+        <p>Hello, {{ authData.facebook.displayName }}</p>
+        <button ng-click="auth.$unauth()">Logout</button>
+      </div>
+      <div ng-hide="authData">
+        <p>Welcome, please log in.</p>
+        <button ng-click="auth.$authWithOAuthPopup('facebook')">Login</button>
+      </div>
+  </div>
+
+  <hr>
+
+  <div class="footer">
+    <p>With ♥ from <a href="https://twitter.com/Swiip">@Swiip</a></p>
+  </div>
+
+</div>
